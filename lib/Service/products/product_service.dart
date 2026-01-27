@@ -1,15 +1,15 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_application_1/Service/base_client.dart';
+import 'package:flutter_application_1/constants/api_endpoints.dart';
 import 'package:flutter_application_1/model/products/categories_data_model.dart';
 import 'package:flutter_application_1/model/products/products_data_model.dart';
 
 class ProductService {
-  final dio = Dio();
   Future<CategoriesDataModel> getCategories({required String shopId}) async {
-    final response = await dio.get(
-      'https://development.foodpage.co.uk/v2/shop/categories/$shopId-SHOP/0',
-      options: Options(headers: {"Content-Type": "application/json"}),
+    final response = await BaseClient.get(
+      "${ApiEndpoints.productCategories}$shopId-SHOP/0",
     );
     final result = response.data;
     // log(result.toString());
@@ -20,9 +20,8 @@ class ProductService {
     required String shopID,
     required String categoryID,
   }) async {
-    final response = await dio.get(
-      "https://development.foodpage.co.uk/v2/shop/products/$shopID/$categoryID/0/online",
-      options: Options(headers: {"Content-Type": "application/json"}),
+    final response = await BaseClient.get(
+      "${ApiEndpoints.products}$shopID/$categoryID/0/online",
     );
     final result = response.data;
     return ProductsDataModel.fromMap(result);
