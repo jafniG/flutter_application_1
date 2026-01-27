@@ -23,6 +23,9 @@ class ShopService {
   Future<ShopDetailsDataModel> getShopDetails({required String shopID}) async {
     final response = await BaseClient.get("${ApiEndpoints.shopDetails}$shopID");
 
+    //do the changes
+    // bkdjbkndcn
+
     final result = response.data;
     return ShopDetailsDataModel.fromMap(result);
   }
